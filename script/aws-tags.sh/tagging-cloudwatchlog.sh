@@ -2,7 +2,7 @@
 
 echo "cloudwatch tag manager"
 
-aws_profile="grmoon-devadm"
+aws_profile="myAwsProfile"
 
 ## select region 
 
