@@ -162,3 +162,4 @@ Output:
 - [AWS CLI Command Reference/iam](https://docs.aws.amazon.com/cli/latest/reference/iam/)
 - [Boto3 Docs/Available/iam](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html#client)
 - [python 에러와 예외](https://docs.python.org/ko/3/tutorial/errors.html)
+- [Python으로 JSON 데이터 읽고 쓰기 (Read and Write JSON data by Python) | 출처: https://rfriend.tistory.com/474 | [R, Python 분석과 프로그래밍의 친구 (by R Friend)]](https://rfriend.tistory.com/474)
