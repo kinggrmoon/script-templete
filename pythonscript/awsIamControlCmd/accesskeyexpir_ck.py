@@ -18,7 +18,7 @@ def run():
     ## make expir accesskey list(and check acive accesskey)
     for username in usernames:
         ## except iam user
-        if username == "backend-rc" or username == "jenkins-cdn" or username == "dev-monitoring-iam":
+        if username == "AAAA" or username == "BBBB" or username == "CCCC":
             pass
         else:
             accesskeys = iam.list_access_keys(UserName = username)
