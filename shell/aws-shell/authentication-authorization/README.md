@@ -37,13 +37,13 @@ aws configure sso
 ```ini
 [profile aws-sso]
 sso_session = my-session
-sso_account_id = 123456789012
+sso_account_id = YOUR_ACCOUNT_ID
 sso_role_name = AdministratorAccess
 region = us-east-1
 output = json
 
 [sso-session my-session]
-sso_start_url = https://your-org.awsapps.com/start
+sso_start_url = https://YOUR_ORG.awsapps.com/start
 sso_region = us-east-1
 sso_registration_scopes = sso:account:access
 ```
@@ -83,13 +83,13 @@ PROFILE_NAME="aws-sso"  # 여기를 원하는 프로파일명으로 변경
 [*] 허용된 계정 및 역할 조회 중...
 [✔] 허용된 계정 리스트 (총 3개):
 
-📦 계정ID: 123456789012 | 계정명: Production Account | 이메일: admin@company.com
-📦 계정ID: 234567890123 | 계정명: Development Account | 이메일: dev@company.com
-📦 계정ID: 345678901234 | 계정명: Staging Account | 이메일: staging@company.com
+📦 계정ID: 111111111111 | 계정명: Production Account | 이메일: admin@example.com
+📦 계정ID: 222222222222 | 계정명: Development Account | 이메일: dev@example.com
+📦 계정ID: 333333333333 | 계정명: Staging Account | 이메일: staging@example.com
 
 [*] AWS CLI 프로파일 형태로 출력:
-aws configure set profile.123456789012_AdministratorAccess.region us-east-1
-aws configure set profile.234567890123_AdministratorAccess.region us-east-1
-aws configure set profile.345678901234_AdministratorAccess.region us-east-1
+aws configure set profile.111111111111_AdministratorAccess.region us-east-1
+aws configure set profile.222222222222_AdministratorAccess.region us-east-1
+aws configure set profile.333333333333_AdministratorAccess.region us-east-1
 ```
 

@@ -1,2 +1,70 @@
 # macOS
 .DS_Store
+
+# AWS 관련 민감한 파일들
+.aws/
+**/credentials
+**/config
+*.pem
+*.key
+*.p12
+*.pfx
+
+# 환경 변수 파일
+.env
+.env.local
+.env.production
+.env.staging
+.envrc
+
+# 로그 파일
+*.log
+logs/
+debug.log
+error.log
+
+# Python 관련
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.venv/
+
+# 임시 파일
+*.tmp
+*.temp
+.cache/
+*.pid
+
+# 백업 파일
+*.backup
+*.bak
+*.orig
+*~
+
+# IDE 설정 파일
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# 보안 관련 파일
+secrets/
+private/
+*.secret
+.secrets
+auth.json
+token.json
+
+# 데이터베이스 파일
+*.db
+*.sqlite
+*.sqlite3
+
+# 압축 파일 (잠재적 민감 정보 포함 가능)
+# *.zip
+# *.tar.gz
+# *.rar
