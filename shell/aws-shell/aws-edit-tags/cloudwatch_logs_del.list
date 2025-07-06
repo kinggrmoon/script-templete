@@ -1,0 +1,9 @@
+# CloudWatch Logs 그룹 태그 삭제 설정 파일
+# 형식: 로그그룹명 삭제할태그키
+# 예시:
+# /aws/lambda/my-function Environment
+# /aws/apigateway/my-api Owner
+
+cloudwatchloggroupNAme01 Environment
+cloudwatchloggroupNAme02 Owner
+cloudwatchloggroupNAme03 Service

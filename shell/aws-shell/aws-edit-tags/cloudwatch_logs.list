@@ -1,0 +1,9 @@
+# CloudWatch Logs 그룹 태깅 설정 파일
+# 형식: 로그그룹명 태그키=태그값,태그키=태그값,...
+# 예시:
+# /aws/lambda/my-function Application=MyApp,Environment=Production,Owner=TeamA
+# /aws/apigateway/my-api Application=MyApp,Environment=Staging,Owner=TeamB
+
+cloudwatchloggroupNAme01 Application=ExampleApp,Environment=Development,Owner=DevTeam,Service=Backend
+cloudwatchloggroupNAme02 Application=ExampleApp,Environment=Staging,Owner=DevTeam,Service=Frontend  
+cloudwatchloggroupNAme03 Application=ExampleApp,Environment=Production,Owner=OpsTeam,Service=Database

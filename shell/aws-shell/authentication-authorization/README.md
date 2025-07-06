@@ -1,12 +1,54 @@
-# AWS SSO 인증 및 권한 스크립트
+# AWS 인증 및 권한 관리 스크립트
 
-이 디렉토리에는 AWS SSO(Single Sign-On) 인증과 권한 관리를 위한 스크립트들이 포함되어 있습니다.
+이 디렉토리에는 AWS 인증과 권한 관리를 위한 다양한 스크립트들이 포함되어 있습니다.
 
 ## 파일 목록
 
-### sso-login-and-get-accountlist.sh
+### 1. sso-login-and-get-accountlist.sh
 
 AWS SSO를 통해 로그인하고 접근 가능한 계정 및 역할 목록을 조회하는 스크립트입니다.
+
+### 2. aws-sts-mfa-auth.sh
+
+AWS STS와 MFA를 사용한 인증 및 역할 전환 스크립트입니다.
+
+## 📁 디렉토리 구조
+
+```
+authentication-authorization/
+├── sso-login-and-get-accountlist.sh    # SSO 로그인 및 계정 조회
+├── aws-sts-mfa-auth.sh                 # MFA 인증 및 역할 전환
+└── README.md                           # 이 문서
+```
+
+## 🔄 스크립트 비교
+
+| 기능 | sso-login-and-get-accountlist.sh | aws-sts-mfa-auth.sh |
+|------|-----------------------------------|---------------------|
+| **인증 방식** | AWS SSO | MFA + STS |
+| **주요 용도** | 계정 조회 및 SSO 로그인 | 역할 전환 및 임시 자격증명 |
+| **브라우저 필요** | ✅ (SSO 로그인시) | ❌ |
+| **MFA 필요** | ❌ (SSO에서 처리) | ✅ |
+| **역할 전환** | ❌ | ✅ |
+| **세션 관리** | SSO 캐시 기반 | 12시간 임시 토큰 |
+
+## 🎯 사용 시나리오
+
+### SSO 환경
+- **sso-login-and-get-accountlist.sh** 사용
+- 여러 AWS 계정에 SSO로 접근
+- 계정 목록 확인 및 브라우저 기반 인증
+
+### 전통적인 IAM + MFA 환경
+- **aws-sts-mfa-auth.sh** 사용
+- MFA 디바이스를 통한 보안 강화
+- 특정 역할로의 권한 전환
+
+---
+
+## 상세 가이드
+
+### sso-login-and-get-accountlist.sh
 
 #### 주요 기능
 - AWS SSO 자동 로그인
@@ -92,4 +134,74 @@ aws configure set profile.111111111111_AdministratorAccess.region us-east-1
 aws configure set profile.222222222222_AdministratorAccess.region us-east-1
 aws configure set profile.333333333333_AdministratorAccess.region us-east-1
 ```
+
+---
+
+### aws-sts-mfa-auth.sh
+
+AWS STS(Security Token Service)와 MFA(Multi-Factor Authentication)를 사용한 인증 및 역할 전환 스크립트입니다.
+
+#### 주요 기능
+- AWS MFA 인증을 통한 임시 자격 증명 획득
+- IAM 역할 전환 (AssumeRole)
+- 다중 역할 지원 (readonlyUser, serviceUser, admin)
+- 12시간 세션 지속 시간
+- 자동 환경 변수 설정
+
+#### 사전 요구사항
+```bash
+# aws-mfa 도구 설치
+pip install aws-mfa
+
+# MFA 디바이스가 AWS 계정에 설정되어 있어야 함
+```
+
+#### 사용법
+
+**1. 기본 MFA 인증 (역할 전환 없음)**
+```bash
+./aws-sts-mfa-auth.sh PROFILE_NAME
+```
+
+**2. MFA 인증 + 역할 전환**
+```bash
+./aws-sts-mfa-auth.sh PROFILE_NAME ROLE_TYPE
+```
+
+#### 지원하는 역할 유형
+- `readonlyUser` - 읽기 전용 권한
+- `serviceUser` - 제한된 서비스 권한
+- `admin` - 전체 관리 권한
+
+#### 사용 예시
+```bash
+# 기본 MFA 인증만
+./aws-sts-mfa-auth.sh my-profile
+
+# 읽기 전용 역할로 전환
+./aws-sts-mfa-auth.sh my-profile readonlyUser
+
+# 관리자 역할로 전환
+./aws-sts-mfa-auth.sh my-profile admin
+```
+
+#### 스크립트 수정 필요사항
+**중요**: 실제 사용 전에 스크립트 내의 계정 ID를 수정해야 합니다:
+```bash
+# 현재 (마스킹된 예시)
+arn:aws:iam::1****2****3:role/readonlyUser-role
+
+# 실제 사용시 변경 필요
+arn:aws:iam::YOUR_ACTUAL_ACCOUNT_ID:role/readonlyUser-role
+```
+
+#### 작동 원리
+1. **인수 검증**: 1개 인수(기본 인증) 또는 2개 인수(역할 전환)
+2. **MFA 인증**: `aws-mfa --profile PROFILE_NAME` 실행
+3. **역할 전환**: 지정된 역할로 AssumeRole 수행 (선택사항)
+4. **환경 설정**: `AWS_PROFILE` 환경 변수 자동 설정
+
+---
+
+## 라이선스
 
