@@ -24,3 +24,8 @@ jobs:
       - name: Verify AWS identity
         run: |
           aws sts get-caller-identity
+
+      - name: List S3 Prefix
+        run: |
+          echo "Listing s3://1101958-test/nodejs-project01"
+          aws s3 ls "s3://1101958-test/nodejs-project01"
